@@ -1,0 +1,12 @@
+{
+  "name": "auditoria-be",
+  "version": "1.0.0",
+  "description": "Backend auditoria banco municipal",
+  "main": "index.js",
+  "author": "German Burgardt",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "hapi": "^17.7.0"
+  }
+}
