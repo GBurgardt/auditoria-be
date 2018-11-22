@@ -17,6 +17,7 @@ const initServer = async () => {
         await server.start();
         console.log(`Server running: ${server.info.uri}`);
     } catch (error) {
+        debugger;
         console.log('Error in running');
     }
 };
