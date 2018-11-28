@@ -1,6 +1,6 @@
 module.exports = {
     userName: 'sa',
-    password: 'Alberdi11',
+    password: 'Hesoyam666',
     server: 'localhost',
     options: {
         encrypt: false,

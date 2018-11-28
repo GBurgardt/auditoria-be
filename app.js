@@ -1,22 +1,20 @@
-const Hapi = require('hapi');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-const routes = require('./routes');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
-const server = Hapi.server({
-    port: 3000,
-    host: 'localhost',
-    app: {}
-});
+var app = express();
 
-const initServer = async () => {
-    try {
-        await server.register(routes);
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-        await server.start();
-        console.log(`Server running: ${server.info.uri}`);
-    } catch (error) {
-        console.log('Error in running');
-    }
-};
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-initServer();
+module.exports = app;
