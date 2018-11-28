@@ -12,12 +12,9 @@ const initServer = async () => {
     try {
         await server.register(routes);
 
-        // await dbService.init()
-
         await server.start();
         console.log(`Server running: ${server.info.uri}`);
     } catch (error) {
-        debugger;
         console.log('Error in running');
     }
 };
