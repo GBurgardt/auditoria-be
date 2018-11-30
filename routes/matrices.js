@@ -6,9 +6,7 @@ const storesProcedures = require('../constants/storesProcedures');
 const TYPES = require('tedious').TYPES;
 const SpParam = require('../models/spParam')
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
-    
     dbService.executeSP(
         storesProcedures.SP_MATRICES_001, 
         [
@@ -22,8 +20,6 @@ router.get('/', function (req, res, next) {
     ).then(a => {
         res.json(a);
     })
-
-    // res.send('matrices');
 });
 
 module.exports = router;

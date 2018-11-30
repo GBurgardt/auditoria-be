@@ -1,8 +1,15 @@
+/**
+ * dbService
+ * 
+ * Servicio que se ocupa de todo lo relacionado a consultas o acciones con la base de datos.
+ * Proporciona métodos de alto nivel para usar stores procedures y consultas comunes, asi como 
+ * configura las conecciones.
+ */
+
 // Dependencias
 const promise = require('bluebird');
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
-// const TYPES = require('tedious').TYPES;
 
 // Configs
 const config = require("../constants/configDb")
@@ -102,15 +109,3 @@ module.exports = {
     executeQuery,
     executeSP
 }
-
-
-/*
-
-rq.addParameter('c_empresa', TYPES.Int, 1);
-rq.addParameter('n_auditoria', TYPES.Int, 1);
-rq.addParameter('c_ciclo', TYPES.Int, 1);
-rq.addParameter('n_subciclo', TYPES.Int, 1);
-rq.addParameter('actividad', TYPES.VarChar, '');
-rq.addParameter('componente_ci', TYPES.VarChar, '');
-
-*/
