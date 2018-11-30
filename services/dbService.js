@@ -41,13 +41,13 @@ const executeQuery = (query) => execute(
             (error, rowCount, rows) => {
                 error ?
                     reject({
-                        rows: {},
-                        rowCount: null,
+                        data: null,
+                        size: null,
                         error
                     }) :
                     resolve({
-                        rows,
-                        rowCount,
+                        data: rows,
+                        size: rowCount ? rowCount : rows.length,
                         error: null
                     });
 
@@ -69,13 +69,13 @@ const executeSP = (nameSp, params) => execute(
             (error, rowCount, rows) => {
                 error ?
                     reject({
-                        rows: {},
-                        rowCount: null,
+                        data: null,
+                        size: null,
                         error
                     }) :
                     resolve({
-                        rows,
-                        rowCount,
+                        data: rows,
+                        size: rowCount ? rowCount : rows.length,
                         error: null
                     });
 
