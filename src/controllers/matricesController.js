@@ -20,17 +20,7 @@ router.get('/', function (req, res, next) {
     )
         .then(resp => {   
             if (resp && resp.data) {
-                const mappedData = resp.data.map(row => 
-                    row.reduce((json, value, key) => { 
-                        json[value.metadata.colName] = value.value; 
-                        return json; 
-                    }, {})
-                );
-
-                res.send({
-                    data: mappedData,
-                    size: mappedData.length
-                });
+                res.send(resp)
             } else {
                 res.send([])
             }

@@ -12,7 +12,7 @@ const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
 
 // Configs
-const config = require("../constants/configDb")
+const config = require('../constants/configDb')
 const typesActionsDb = require("../constants/typesActionsDb")
 
 /**
@@ -33,8 +33,22 @@ const execute = (action, callback) =>
         )
     })
 
+
+/**
+ * Mappea la respuesta horrible que tira tedious a algo mas legible
+ * @param {*} resp 
+ */
+const mappedResponse = (rows) => 
+    rows.map(row => 
+        row.reduce((json, value, key) => { 
+            json[value.metadata.colName] = value.value; 
+            return json; 
+        }, {})
+    )
+
 /**************************************************************************************/
 /**************************************************************************************/
+
 
 /**
  * Ejecuta una query
@@ -53,7 +67,8 @@ const executeQuery = (query) => execute(
                         error
                     }) :
                     resolve({
-                        data: rows,
+                        // data: rows,
+                        data: mappedResponse(rows),
                         size: rowCount ? rowCount : rows.length,
                         error: null
                     });
@@ -81,7 +96,8 @@ const executeSP = (nameSp, params) => execute(
                         error
                     }) :
                     resolve({
-                        data: rows,
+                        // data: rows,
+                        data: mappedResponse(rows),
                         size: rowCount ? rowCount : rows.length,
                         error: null
                     });
