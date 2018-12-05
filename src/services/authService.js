@@ -20,30 +20,29 @@ const dbService = require('./dbService');
 /**
  * Dado un user y su pass se lo busca en la db, y en caso de encontrarlo se retorna un token
  * @param {*} nombre 
- * @param {*} contra 
+ * @param {*} clave 
  */
-const login = (nombre, contra) => {
+const login = (empresa, nombre, clave) => {
     // Encripto la clave en sha256
     const shaPass = crypto.createHash('sha256')
-        .update(contra).digest('hex');
+        .update(clave).digest('hex');
 
     // Obtengo el usuario a partir de su nombre y su clave encryptada (sha256)
-    const user = getUserFromDb(nombre, shaPass);
+    return getUserFromDb(empresa, nombre, shaPass).then(user => 
 
-    return user
-
-    // Retorno el token (o null si el usuario no existe)
-    // return user ? generateToken(user) : null;
+        // Retorno el token (o null si el usuario no existe)
+        user && user.data && user.data.length > 0 ? generateToken(user.data[0], empresa) : null
+    )
 }
 
 /**
  * Genera un token a partir de un usuario
  * @param {*} user 
  */
-const generateToken = (user) => 
+const generateToken = (user, empresa) => 
     jwt.sign(
         { 
-            id: `${user.nombre}-${configRest.currentEmpresa}`
+            id: `${user.nombre}-${empresa}`
         }, 
         configJwt.secret, 
         {
@@ -53,14 +52,20 @@ const generateToken = (user) =>
 
 /**
  * Dado un user y su pass encryptada, se lo busca en la db y se lo retorna si se lo encuentra
- * @param {*} user 
+ * @param {*} nombre 
  */
-const getUserFromDb = (user, shaPass) => dbService.executeQuery(
-    `SELECT US_C_EMPRESA, US_NOMBRE, US_CONTRA FROM Audinterna.dbo.MN_USUARIOS where us_nombre = 'hola' and us_contra = 'b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79'`
-)
-// .then(resp => {
-//     console.log(resp)
-// })
+const getUserFromDb = (empresa, nombre, shaPass) => 
+    dbService.executeQuery(
+        `
+        SELECT US_C_EMPRESA, US_NOMBRE, US_CONTRA 
+        FROM Audinterna.dbo.MN_USUARIOS 
+        WHERE 
+            US_NOMBRE = '${nombre}' 
+            and US_CONTRA = '${shaPass}'
+            and US_C_EMPRESA = ${empresa}
+        `
+    )
+
 
 /**************************************************************************************/
 /**************************************************************************************/
