@@ -22,12 +22,16 @@ router.post('/login', function (req, res) {
     
                 token ?
                     res.status(200).send(new GenericResponse(
-                        { codigo: tiposResponse.OK_REQUEST, descripcion: 'Ingreso correcto', descripcionLarga: '' },
+                        { codigo: tiposResponse.OK_REQUEST, descripcion: 'Ingreso correcto', descripcionLarga: 'Ingreso correcto' },
                         { auth: true, empresa, nombre, token }
                     ))
                     :
                     res.status(401).send(new GenericResponse(
-                        { codigo: tiposResponse.UNAUTHORIZED, descripcion: 'Usuario o clave incorrecto', descripcionLarga: '' },
+                        { 
+                            codigo: tiposResponse.UNAUTHORIZED, 
+                            descripcion: 'Ingreso incorrecto', 
+                            descripcionLarga: 'Algún dato ingresado es incorrecto' 
+                        },
                         { auth: false, empresa, nombre, token }
                     ))
     
