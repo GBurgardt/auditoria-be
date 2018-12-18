@@ -39,12 +39,16 @@ const execute = (action, callback) =>
  * @param {*} resp 
  */
 const mappedResponse = (rows) => 
-    rows.map(row => 
-        row.reduce((json, value, key) => { 
-            json[value.metadata.colName] = value.value; 
-            return json; 
-        }, {})
-    )
+    rows
+        .map(row => 
+            row.reduce((json, value, key) => { 
+                json[value.metadata.colName] = value.value;
+                return json; 
+            }, {})
+        )
+        // .map(
+        //     (row,i,arr) => 
+        // )
 
 /**************************************************************************************/
 /**************************************************************************************/
