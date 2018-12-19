@@ -58,11 +58,11 @@ const getUserFromDb = (empresa, nombre, shaPass) =>
     dbService.executeQuery(
         `
         SELECT US_C_EMPRESA, US_NOMBRE, US_CONTRA 
-        FROM Audinterna.dbo.MN_USUARIOS 
-        WHERE 
-            US_NOMBRE = '${nombre}' 
-            and US_CONTRA = '${shaPass}'
-            and US_C_EMPRESA = ${empresa}
+            FROM Audinterna.dbo.MN_USUARIOS 
+            WHERE 
+                US_NOMBRE = '${nombre}' 
+                and US_CONTRA = '${shaPass}'
+                and US_C_EMPRESA = ${empresa}
         `
     )
 

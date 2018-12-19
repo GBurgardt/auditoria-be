@@ -71,9 +71,8 @@ const executeQuery = (query) => execute(
                         error
                     }) :
                     resolve({
-                        // data: rows,
                         data: mappedResponse(rows),
-                        size: rowCount ? rowCount : rows.length,
+                        // size: rows.length,
                         error: null
                     });
 

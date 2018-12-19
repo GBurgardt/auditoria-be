@@ -22,11 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 ////////////////////////////
 var configRest = require('./src/constants/configRest');
 var indexRouter = require('./src/controllers/indexController');
-var matricesRouter = require('./src/controllers/matricesController');
-var usuariosRouter = require('./src/controllers/usuariosController');
+var usuariosController = require('./src/controllers/usuariosController');
+var matricesController = require('./src/controllers/matricesController');
+var ciclosController = require('./src/controllers/ciclosController');
+var subCiclosController = require('./src/controllers/subCiclosController');
 
 app.use(`/v${configRest.currentVersion}/`, indexRouter);
-app.use(`/v${configRest.currentVersion}/matrices`, matricesRouter);
-app.use(`/v${configRest.currentVersion}/usuarios`, usuariosRouter);
+app.use(`/v${configRest.currentVersion}/usuarios`, usuariosController);
+app.use(`/v${configRest.currentVersion}/matrices`, matricesController);
+app.use(`/v${configRest.currentVersion}/ciclos`, ciclosController);
+app.use(`/v${configRest.currentVersion}/subCiclos`, subCiclosController);
 
 module.exports = app;
