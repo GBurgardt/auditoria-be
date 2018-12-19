@@ -31,6 +31,6 @@ app.use(`/v${configRest.currentVersion}/`, indexRouter);
 app.use(`/v${configRest.currentVersion}/usuarios`, usuariosController);
 app.use(`/v${configRest.currentVersion}/matrices`, matricesController);
 app.use(`/v${configRest.currentVersion}/ciclos`, ciclosController);
-app.use(`/v${configRest.currentVersion}/subCiclos`, subCiclosController);
+app.use(`/v${configRest.currentVersion}/sub-ciclos`, subCiclosController);
 
 module.exports = app;
