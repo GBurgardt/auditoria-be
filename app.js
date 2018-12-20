@@ -26,11 +26,15 @@ var usuariosController = require('./src/controllers/usuariosController');
 var matricesController = require('./src/controllers/matricesController');
 var ciclosController = require('./src/controllers/ciclosController');
 var subCiclosController = require('./src/controllers/subCiclosController');
+var actividadesController = require('./src/controllers/actividadesController');
+var componentesController = require('./src/controllers/componentesController');
 
 app.use(`/v${configRest.currentVersion}/`, indexRouter);
 app.use(`/v${configRest.currentVersion}/usuarios`, usuariosController);
 app.use(`/v${configRest.currentVersion}/matrices`, matricesController);
 app.use(`/v${configRest.currentVersion}/ciclos`, ciclosController);
 app.use(`/v${configRest.currentVersion}/sub-ciclos`, subCiclosController);
+app.use(`/v${configRest.currentVersion}/actividades`, actividadesController);
+app.use(`/v${configRest.currentVersion}/componentes`, componentesController);
 
 module.exports = app;
