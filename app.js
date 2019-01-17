@@ -28,6 +28,7 @@ var ciclosController = require('./src/controllers/ciclosController');
 var subCiclosController = require('./src/controllers/subCiclosController');
 var actividadesController = require('./src/controllers/actividadesController');
 var componentesController = require('./src/controllers/componentesController');
+var auditoriasController = require('./src/controllers/auditoriasController');
 
 app.use(`/v${configRest.currentVersion}/`, indexRouter);
 app.use(`/v${configRest.currentVersion}/usuarios`, usuariosController);
@@ -36,5 +37,6 @@ app.use(`/v${configRest.currentVersion}/ciclos`, ciclosController);
 app.use(`/v${configRest.currentVersion}/sub-ciclos`, subCiclosController);
 app.use(`/v${configRest.currentVersion}/actividades`, actividadesController);
 app.use(`/v${configRest.currentVersion}/componentes`, componentesController);
+app.use(`/v${configRest.currentVersion}/auditorias`, auditoriasController);
 
 module.exports = app;
