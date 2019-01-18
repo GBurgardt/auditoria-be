@@ -19,7 +19,6 @@ router.post('/login', function (req, res) {
     if (empresa && nombre && clave) {
         authService.login(empresa, nombre, clave)
             .then(token => {
-    
                 token ?
                     res.status(200).send(new GenericResponse(
                         { codigo: tiposResponse.OK_REQUEST, descripcion: 'Ingreso correcto', descripcionLarga: 'Ingreso correcto' },

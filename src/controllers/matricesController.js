@@ -28,20 +28,7 @@ router.get('/', function (req, res, next) {
         .catch(err => {
             res.send(err)
         })
+
 });
 
 module.exports = router;
-
-
-
-/*
-
-"select distinct cl_c_ciclo, cl_nombre "+
-				"from    au_matriz, bm_ciclos "+
-				"where mt_c_empresa = (?) " +
-				"and     mt_n_auditoria = (?) " +
-				"and     mt_c_empresa = cl_c_empresa " +
-				"and     mt_c_ciclo = cl_c_ciclo " +
-				"order by cl_nombre ";
-
-*/

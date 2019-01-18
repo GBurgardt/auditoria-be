@@ -15,6 +15,9 @@ const Request = require("tedious").Request;
 const config = require('../constants/configDb')
 const typesActionsDb = require("../constants/typesActionsDb")
 
+// Otros
+const authService = require('../services/authService')
+
 /**
  * Wrappeo un tipo de procedimiento de la db en una promise
  * @param {*} action 
@@ -46,9 +49,6 @@ const mappedResponse = (rows) =>
                 return json; 
             }, {})
         )
-        // .map(
-        //     (row,i,arr) => 
-        // )
 
 /**************************************************************************************/
 /**************************************************************************************/

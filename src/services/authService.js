@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 const configJwt = require('../constants/configJwt');
-const configRest = require('../constants/configRest');
+// const configRest = require('../constants/configRest');
 const dbService = require('./dbService');
 
 
@@ -29,7 +29,6 @@ const login = (empresa, nombre, clave) => {
 
     // Obtengo el usuario a partir de su nombre y su clave encryptada (sha256)
     return getUserFromDb(empresa, nombre, shaPass).then(user => 
-
         // Retorno el token (o null si el usuario no existe)
         user && user.data && user.data.length > 0 ? generateToken(user.data[0], empresa) : null
     )
@@ -44,10 +43,21 @@ const generateToken = (user, empresa) =>
         { 
             id: `${user.nombre}-${empresa}`
         }, 
-        configJwt.secret, 
+        configJwt.secret,
         {
-            expiresIn: 86400 // expires in 24 hours
+            // expiresIn: 86400 // expires in 24 hours
+            expiresIn: 60
         }
+    )
+
+/**
+ * Verifica que el token sea valido
+ * @param {*} token 
+ */
+const verifyToken = (token) => 
+    jwt.verify(
+        token, 
+        configJwt.secret
     )
 
 /**
@@ -74,5 +84,6 @@ const getUserFromDb = (empresa, nombre, shaPass) =>
  * Funciones relacionadas a la DB
  */
 module.exports = {
-    login
+    login,
+    verifyToken
 }
