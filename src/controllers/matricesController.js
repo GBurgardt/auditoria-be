@@ -18,9 +18,48 @@ router.get('/', function (req, res, next) {
             new SpParam('componente_ci', TYPES.VarChar, '')
         ]
     )
-        .then(resp => {   
+        .then(resp => {
             if (resp && resp.data) {
-                res.send(resp)
+                
+                // Mappeo la data
+                const mappedResponse = { 
+                    ...resp,
+                    data: resp.data
+                        .filter(
+                            row => row.t_registro === 'OC'
+                        )
+                        .map(
+                            oc => {
+                                const allChildren = resp.data
+                                    .filter(
+                                        row => 
+                                            row.t_registro !== 'OC' && 
+                                            row.mto_n_objetivo === oc.mto_n_objetivo
+                                    )
+                                return {
+                                    ...oc,
+                                    children: allChildren
+                                        .filter(
+                                            child => child.t_registro !== 'TR'
+                                        )
+                                        .map(
+                                            child => ({
+                                                ...child,
+                                                children: allChildren
+                                                    .filter(
+                                                        grandchild => 
+                                                            child.t_registro === 'AC' && 
+                                                            grandchild.t_registro === 'TR' && 
+                                                            child.mta_n_actividad === grandchild.mta_n_actividad
+                                                    )
+                                            })
+                                        )
+                                }
+                            }
+                        )
+                };
+
+                res.send(mappedResponse)
             } else {
                 res.send([])
             }
@@ -32,3 +71,13 @@ router.get('/', function (req, res, next) {
 });
 
 module.exports = router;
+
+
+/* Tipos Registros Referencia
+
+OC - Objetivo de Control
+    RR - Riesgo Relacionado
+    AC - Accion de Control
+        TR - Tareas.
+
+*/

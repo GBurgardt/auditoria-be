@@ -45,8 +45,8 @@ const generateToken = (user, empresa) =>
         }, 
         configJwt.secret,
         {
-            // expiresIn: 86400 // expires in 24 hours
-            expiresIn: 60
+            expiresIn: 86400 // expires in 24 hours
+            // expiresIn: 60
         }
     )
 
