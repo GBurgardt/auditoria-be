@@ -30,6 +30,8 @@ var actividadesController = require('./src/controllers/actividadesController');
 var componentesController = require('./src/controllers/componentesController');
 var auditoriasController = require('./src/controllers/auditoriasController');
 var objetivosControlController = require('./src/controllers/objetivosControlController');
+var categoriasController = require('./src/controllers/categoriasController');
+var riesgosController = require('./src/controllers/riesgosController');
 
 app.use(`/v${configRest.currentVersion}/`, indexRouter);
 app.use(`/v${configRest.currentVersion}/usuarios`, usuariosController);
@@ -40,5 +42,7 @@ app.use(`/v${configRest.currentVersion}/actividades`, actividadesController);
 app.use(`/v${configRest.currentVersion}/componentes`, componentesController);
 app.use(`/v${configRest.currentVersion}/auditorias`, auditoriasController);
 app.use(`/v${configRest.currentVersion}/objetivos-control`, objetivosControlController);
+app.use(`/v${configRest.currentVersion}/categorias`, categoriasController);
+app.use(`/v${configRest.currentVersion}/riesgos`, riesgosController);
 
 module.exports = app;
