@@ -14,8 +14,8 @@ router.get('/', function (req, res, next) {
             new SpParam('n_auditoria', TYPES.Int, req.query.n_auditoria),
             new SpParam('c_ciclo', TYPES.Int, req.query.c_ciclo),
             new SpParam('n_subciclo', TYPES.Int, req.query.n_subciclo),
-            new SpParam('actividad', TYPES.VarChar, ''),
-            new SpParam('componente_ci', TYPES.VarChar, '')
+            new SpParam('actividad', TYPES.VarChar, req.query.actividad),
+            new SpParam('componente_ci', TYPES.VarChar, req.query.componente_ci)
         ]
     )
         .then(resp => {

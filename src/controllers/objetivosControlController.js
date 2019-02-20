@@ -51,7 +51,7 @@ router
         (req, res, next) => dbService.executeSP(
             storesProcedures.s_AC_MATRIZ_OC_CRUD, 
             [
-                new SpParam('pAction', TYPES.Char, req.body.paction),
+                new SpParam('pAction', TYPES.Char, 'I'),
                 new SpParam('pMTO_C_EMPRESA', TYPES.Int, req.body.pmto_c_empresa),
                 new SpParam('pMTO_N_AUDITORIA', TYPES.Int, req.body.pmto_n_auditoria),
                 new SpParam('pMTO_N_OBJETIVO', TYPES.SmallInt, req.body.pmto_n_objetivo),
@@ -68,11 +68,72 @@ router
             .then(resp => {
                 if (resp && resp.data) {
                     
-                    console.log(resp)
-    
-                    res.send(resp)
+                    const infoResp = { 
+                        ...resp,
+                        infoModal: {
+                            title: 'Operación realizada',
+                            innerText: `El Objetivo de Control se creó con éxito`
+                        }
+                    };
+
+                    res.send(infoResp)
                 } else {
-                    res.send([])
+
+                    const infoResp = { 
+                        infoModal: {
+                            title: 'Error',
+                            innerText: `Algo salió mal`
+                        }
+                    };
+
+                    res.send(infoResp)
+                }
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    )
+    .put(
+        '/',
+        (req, res, next) => dbService.executeSP(
+            storesProcedures.s_AC_MATRIZ_OC_CRUD, 
+            [
+                new SpParam('pAction', TYPES.Char, 'U'),
+                new SpParam('pMTO_C_EMPRESA', TYPES.Int, req.body.pmto_c_empresa),
+                new SpParam('pMTO_N_AUDITORIA', TYPES.Int, req.body.pmto_n_auditoria),
+                new SpParam('pMTO_N_OBJETIVO', TYPES.SmallInt, req.body.pmto_n_objetivo),
+                new SpParam('pMTO_N_CICLO', TYPES.Int, req.body.pmto_n_ciclo),
+                new SpParam('pMTO_OBJETIVO', TYPES.VarChar, req.body.pmto_objetivo),
+                new SpParam('pMTO_C_CATEGORIA', TYPES.SmallInt, req.body.pmto_c_categoria),
+                new SpParam('pMTO_USUARIO', TYPES.VarChar, req.body.pmto_usuario),
+                new SpParam('pMTO_CALIFICA', TYPES.Char, req.body.pmto_califica),
+                new SpParam('pMTO_P_MAXIMO', TYPES.Decimal, req.body.pmto_p_maximo),
+                new SpParam('pMTO_VALORACION', TYPES.Decimal, req.body.pmto_valoracion),
+                new SpParam('pMTO_C_RIESGO', TYPES.Decimal, req.body.pmto_c_riesgo)
+            ]
+        )
+            .then(resp => {
+                if (resp && resp.data) {
+                    
+                    const infoResp = { 
+                        ...resp,
+                        infoModal: {
+                            title: 'Operación realizada',
+                            innerText: `El Objetivo de Control se editó con éxito`
+                        }
+                    };
+
+                    res.send(infoResp)
+                } else {
+
+                    const infoResp = { 
+                        infoModal: {
+                            title: 'Error',
+                            innerText: `Algo salió mal`
+                        }
+                    };
+
+                    res.send(infoResp)
                 }
             })
             .catch(err => {
