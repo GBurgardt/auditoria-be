@@ -5,28 +5,30 @@ const storesProcedures = require('../constants/storesProcedures');
 const TYPES = require('tedious').TYPES;
 const SpParam = require('../models/spParam')
 
+
+// "select * from au_matriz_ocr " +  	                       
+//                    "where  mtr_c_empresa  = (?) " +
+//                    "and	   mtr_n_auditoria    = (?) " +
+//                    "and    mtr_n_riesgo  = (?) ";	
+
 router
     .get(
         '/', 
         (req, res, next) => dbService.executeQuery(
                 `
                 SELECT 
-                    mto_c_empresa,
-                    mto_n_auditoria,
-                    mto_n_objetivo,
-                    mto_n_ciclo,
-                    mto_objetivo,
-                    mto_c_categoria,
-                    mto_usuario,
-                    mto_f_graba,
-                    mto_p_maximo,
-                    mto_califica,
-                    mto_valoracion,
-                    mto_c_riesgo
-                FROM au_matriz_oc
-                    WHERE  mto_c_empresa = '${req.query.mt_c_empresa}'
-                    AND	   mto_n_auditoria = '${req.query.mt_n_auditoria}'
-                    AND    mto_n_objetivo =  '${req.query.mto_n_objetivo}'
+                    mtr_c_empresa,
+                    mtr_n_auditoria,
+                    mtr_n_riesgo,
+                    mtr_n_objetivo,
+                    mtr_riesgo,
+                    mtr_accion,
+                    mtr_usuario,
+                    mtr_f_graba
+                FROM au_matriz_ocr
+                    WHERE  mtr_c_empresa = '${req.query.mtr_c_empresa}'
+                    AND	   mtr_n_auditoria = '${req.query.mtr_n_auditoria}'
+                    AND    mtr_n_riesgo =  '${req.query.mtr_n_riesgo}'
                 `
             )
                 .then(queryResp => { 
