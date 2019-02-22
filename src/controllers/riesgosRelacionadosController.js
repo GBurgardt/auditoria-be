@@ -51,20 +51,16 @@ router
     .post(
         '/',
         (req, res, next) => dbService.executeSP(
-            storesProcedures.s_AC_MATRIZ_OC_CRUD, 
+            storesProcedures.s_AU_MATRIZ_OCR_CRUD, 
             [
-                new SpParam('pAction', TYPES.Char, 'I'),
-                new SpParam('pMTO_C_EMPRESA', TYPES.Int, req.body.pmto_c_empresa),
-                new SpParam('pMTO_N_AUDITORIA', TYPES.Int, req.body.pmto_n_auditoria),
-                new SpParam('pMTO_N_OBJETIVO', TYPES.SmallInt, req.body.pmto_n_objetivo),
-                new SpParam('pMTO_N_CICLO', TYPES.Int, req.body.pmto_n_ciclo),
-                new SpParam('pMTO_OBJETIVO', TYPES.VarChar, req.body.pmto_objetivo),
-                new SpParam('pMTO_C_CATEGORIA', TYPES.SmallInt, req.body.pmto_c_categoria),
-                new SpParam('pMTO_USUARIO', TYPES.VarChar, req.body.pmto_usuario),
-                new SpParam('pMTO_CALIFICA', TYPES.Char, req.body.pmto_califica),
-                new SpParam('pMTO_P_MAXIMO', TYPES.Decimal, req.body.pmto_p_maximo),
-                new SpParam('pMTO_VALORACION', TYPES.Decimal, req.body.pmto_valoracion),
-                new SpParam('pMTO_C_RIESGO', TYPES.Decimal, req.body.pmto_c_riesgo)
+                new SpParam('paction', TYPES.Char, 'I'),
+                new SpParam('p_c_empresa', TYPES.Int, req.body.p_c_empresa),
+                new SpParam('p_n_auditoria', TYPES.Int, req.body.p_n_auditoria),
+                new SpParam('p_n_riesgo', TYPES.SmallInt, req.body.p_n_riesgo),
+                new SpParam('p_n_objetivo', TYPES.SmallInt, req.body.p_n_objetivo),
+                new SpParam('p_riesgo', TYPES.VarChar, req.body.p_riesgo),
+                new SpParam('p_accion', TYPES.VarChar, req.body.p_accion),
+                new SpParam('p_usuario', TYPES.VarChar, req.body.p_usuario)
             ]
         )
             .then(resp => {
@@ -74,7 +70,7 @@ router
                         ...resp,
                         infoModal: {
                             title: 'Operación realizada',
-                            innerText: `El Objetivo de Control se creó con éxito`
+                            innerText: `El Riesgo Relacionado se creó con éxito`
                         }
                     };
 
@@ -98,20 +94,16 @@ router
     .put(
         '/',
         (req, res, next) => dbService.executeSP(
-            storesProcedures.s_AC_MATRIZ_OC_CRUD, 
+            storesProcedures.s_AU_MATRIZ_OCR_CRUD, 
             [
-                new SpParam('pAction', TYPES.Char, 'U'),
-                new SpParam('pMTO_C_EMPRESA', TYPES.Int, req.body.pmto_c_empresa),
-                new SpParam('pMTO_N_AUDITORIA', TYPES.Int, req.body.pmto_n_auditoria),
-                new SpParam('pMTO_N_OBJETIVO', TYPES.SmallInt, req.body.pmto_n_objetivo),
-                new SpParam('pMTO_N_CICLO', TYPES.Int, req.body.pmto_n_ciclo),
-                new SpParam('pMTO_OBJETIVO', TYPES.VarChar, req.body.pmto_objetivo),
-                new SpParam('pMTO_C_CATEGORIA', TYPES.SmallInt, req.body.pmto_c_categoria),
-                new SpParam('pMTO_USUARIO', TYPES.VarChar, req.body.pmto_usuario),
-                new SpParam('pMTO_CALIFICA', TYPES.Char, req.body.pmto_califica),
-                new SpParam('pMTO_P_MAXIMO', TYPES.Decimal, req.body.pmto_p_maximo),
-                new SpParam('pMTO_VALORACION', TYPES.Decimal, req.body.pmto_valoracion),
-                new SpParam('pMTO_C_RIESGO', TYPES.Decimal, req.body.pmto_c_riesgo)
+                new SpParam('paction', TYPES.Char, 'U'),
+                new SpParam('p_c_empresa', TYPES.Int, req.body.p_c_empresa),
+                new SpParam('p_n_auditoria', TYPES.Int, req.body.p_n_auditoria),
+                new SpParam('p_n_riesgo', TYPES.SmallInt, req.body.p_n_riesgo),
+                new SpParam('p_n_objetivo', TYPES.SmallInt, req.body.p_n_objetivo),
+                new SpParam('p_riesgo', TYPES.VarChar, req.body.p_riesgo),
+                new SpParam('p_accion', TYPES.VarChar, req.body.p_accion),
+                new SpParam('p_usuario', TYPES.VarChar, req.body.p_usuario)
             ]
         )
             .then(resp => {
@@ -121,7 +113,7 @@ router
                         ...resp,
                         infoModal: {
                             title: 'Operación realizada',
-                            innerText: `El Objetivo de Control se editó con éxito`
+                            innerText: `El Riesgo Relacionado se editó con éxito`
                         }
                     };
 
@@ -143,23 +135,19 @@ router
             })
     )
     .delete(
-        '/:pmto_objetivo',
+        '/:p_n_riesgo',
         (req, res, next) => 
             dbService.executeSP(
-                storesProcedures.s_AC_MATRIZ_OC_CRUD, 
+                storesProcedures.s_AU_MATRIZ_OCR_CRUD, 
                 [
-                    new SpParam('pAction', TYPES.Char, 'D'),
-                    new SpParam('pMTO_C_EMPRESA', TYPES.Int, req.query.pmto_c_empresa),
-                    new SpParam('pMTO_N_AUDITORIA', TYPES.Int, req.query.pmto_n_auditoria),
-                    new SpParam('pMTO_N_OBJETIVO', TYPES.SmallInt, req.params.pmto_objetivo),
-                    new SpParam('pMTO_N_CICLO', TYPES.Int, null),
-                    new SpParam('pMTO_OBJETIVO', TYPES.VarChar, null),
-                    new SpParam('pMTO_C_CATEGORIA', TYPES.SmallInt, null),
-                    new SpParam('pMTO_USUARIO', TYPES.VarChar, null),
-                    new SpParam('pMTO_CALIFICA', TYPES.Char, null),
-                    new SpParam('pMTO_P_MAXIMO', TYPES.Decimal, null),
-                    new SpParam('pMTO_VALORACION', TYPES.Decimal, null),
-                    new SpParam('pMTO_C_RIESGO', TYPES.Decimal, null)
+                    new SpParam('paction', TYPES.Char, 'D'),
+                    new SpParam('p_c_empresa', TYPES.Int, req.query.p_c_empresa),
+                    new SpParam('p_n_auditoria', TYPES.Int, req.query.p_n_auditoria),
+                    new SpParam('p_n_riesgo', TYPES.SmallInt, req.params.p_n_riesgo),
+                    new SpParam('p_n_objetivo', TYPES.SmallInt, null),
+                    new SpParam('p_riesgo', TYPES.VarChar, null),
+                    new SpParam('p_accion', TYPES.VarChar, null),
+                    new SpParam('p_usuario', TYPES.VarChar, null)
                 ]
             )
                 .then(resp => {
@@ -169,7 +157,7 @@ router
                             ...resp,
                             infoModal: {
                                 title: 'Operación realizada',
-                                innerText: `El Objetivo de Control se borró con éxito`
+                                innerText: `El Riesgo Relacionado se borró con éxito`
                             }
                         };
     
@@ -189,6 +177,7 @@ router
                 .catch(err => {
                     res.send(err)
                 })
+        
         
     )
 
