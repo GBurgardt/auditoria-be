@@ -5,24 +5,44 @@ const storesProcedures = require('../constants/storesProcedures');
 const TYPES = require('tedious').TYPES;
 const SpParam = require('../models/spParam')
 
+
+/*
+
+"select * from au_matriz_ac " +  	                       
+                       "where  mta_c_empresa  = (?) " +
+                       "and	   mta_n_auditoria    = (?) " +
+                       "and    mta_n_objetivo  = (?) " +
+		               "and    mta_n_actividad  = (?) ";
+
+*/
+
 router
     .get(
         '/', 
         (req, res, next) => dbService.executeQuery(
                 `
                 SELECT 
-                    mtr_c_empresa,
-                    mtr_n_auditoria,
-                    mtr_n_riesgo,
-                    mtr_n_objetivo,
-                    mtr_riesgo,
-                    mtr_accion,
-                    mtr_usuario,
-                    mtr_f_graba
-                FROM au_matriz_ocr
-                    WHERE  mtr_c_empresa = '${req.query.mtr_c_empresa}'
-                    AND	   mtr_n_auditoria = '${req.query.mtr_n_auditoria}'
-                    AND    mtr_n_riesgo =  '${req.query.mtr_n_riesgo}'
+                    mta_c_empresa, 
+                    mta_n_auditoria, 
+                    mta_n_actividad, 
+                    mta_n_objetivo, 
+                    mta_actividad, 
+                    mta_existe, 
+                    mta_existe_descrip, 
+                    mta_norma, 
+                    mta_norma_descrip, 
+                    mta_referencia, 
+                    mta_ac_estado, 
+                    mta_usuario, 
+                    mta_f_graba, 
+                    mta_n_riesgo, 
+                    mta_existe_res, 
+                    mta_existe_descrip_res
+                FROM au_matriz_ac
+                    WHERE  mta_c_empresa = '${req.query.mta_c_empresa}'
+                    AND	   mta_n_auditoria = '${req.query.mta_n_auditoria}'
+                    AND    mta_n_objetivo =  '${req.query.mta_n_objetivo}'
+                    AND    mta_n_actividad =  '${req.query.mta_n_actividad}'
                 `
             )
                 .then(queryResp => { 
