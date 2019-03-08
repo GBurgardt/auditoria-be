@@ -5,17 +5,6 @@ const storesProcedures = require('../constants/storesProcedures');
 const TYPES = require('tedious').TYPES;
 const SpParam = require('../models/spParam')
 
-
-/*
-
-"select * from au_matriz_ac " +  	                       
-                       "where  mta_c_empresa  = (?) " +
-                       "and	   mta_n_auditoria    = (?) " +
-                       "and    mta_n_objetivo  = (?) " +
-		               "and    mta_n_actividad  = (?) ";
-
-*/
-
 router
     .get(
         '/', 
@@ -65,20 +54,22 @@ router
     .post(
         '/',
         (req, res, next) => dbService.executeSP(
-            storesProcedures.s_AC_MATRIZ_OC_CRUD, 
+            storesProcedures.s_AU_MATRIZ_AC_CRUD, 
             [
-                new SpParam('pAction', TYPES.Char, 'I'),
-                new SpParam('pMTO_C_EMPRESA', TYPES.Int, req.body.pmto_c_empresa),
-                new SpParam('pMTO_N_AUDITORIA', TYPES.Int, req.body.pmto_n_auditoria),
-                new SpParam('pMTO_N_OBJETIVO', TYPES.SmallInt, req.body.pmto_n_objetivo),
-                new SpParam('pMTO_N_CICLO', TYPES.Int, req.body.pmto_n_ciclo),
-                new SpParam('pMTO_OBJETIVO', TYPES.VarChar, req.body.pmto_objetivo),
-                new SpParam('pMTO_C_CATEGORIA', TYPES.SmallInt, req.body.pmto_c_categoria),
-                new SpParam('pMTO_USUARIO', TYPES.VarChar, req.body.pmto_usuario),
-                new SpParam('pMTO_CALIFICA', TYPES.Char, req.body.pmto_califica),
-                new SpParam('pMTO_P_MAXIMO', TYPES.Decimal, req.body.pmto_p_maximo),
-                new SpParam('pMTO_VALORACION', TYPES.Decimal, req.body.pmto_valoracion),
-                new SpParam('pMTO_C_RIESGO', TYPES.Decimal, req.body.pmto_c_riesgo)
+                new SpParam('paction', TYPES.Char, 'I'),
+                new SpParam('p_c_empresa', TYPES.Int, req.body.p_c_empresa),
+                new SpParam('p_n_auditoria', TYPES.Int, req.body.p_n_auditoria),
+                new SpParam('p_n_actividad', TYPES.SmallInt, req.body.p_n_actividad),
+                new SpParam('p_n_objetivo', TYPES.SmallInt, req.body.p_n_objetivo),
+                new SpParam('p_actividad', TYPES.VarChar, req.body.p_actividad),
+                new SpParam('p_existe', TYPES.Char, req.body.p_existe),
+                new SpParam('p_existe_descrip', TYPES.VarChar, req.body.p_existe_descrip),
+                new SpParam('p_norma', TYPES.Char, req.body.p_norma),
+                new SpParam('p_norma_descrip', TYPES.VarChar, req.body.p_norma_descrip),
+                new SpParam('p_referencia', TYPES.VarChar, req.body.p_referencia),
+                new SpParam('p_ac_estado', TYPES.Char, req.body.p_ac_estado),
+                new SpParam('p_usuario', TYPES.VarChar, req.body.p_usuario),
+                new SpParam('p_n_riesgo', TYPES.SmallInt, req.body.p_n_riesgo)
             ]
         )
             .then(resp => {
@@ -88,7 +79,7 @@ router
                         ...resp,
                         infoModal: {
                             title: 'Operación realizada',
-                            innerText: `El Objetivo de Control se creó con éxito`
+                            innerText: `La Acción de Control se creó con éxito`
                         }
                     };
 
