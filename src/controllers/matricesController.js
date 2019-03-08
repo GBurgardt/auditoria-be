@@ -40,7 +40,7 @@ router.get('/', function (req, res, next) {
                                     ...oc,
                                     children: allChildren
                                         .filter(
-                                            child => child.t_registro !== 'TR'
+                                            child => child.t_registro === 'RR'
                                         )
                                         .map(
                                             child => ({
@@ -48,9 +48,20 @@ router.get('/', function (req, res, next) {
                                                 children: allChildren
                                                     .filter(
                                                         grandchild => 
-                                                            child.t_registro === 'AC' && 
-                                                            grandchild.t_registro === 'TR' && 
-                                                            child.mta_n_actividad === grandchild.mta_n_actividad
+                                                            grandchild.t_registro === 'AC' && 
+                                                            child.mtr_n_riesgo === grandchild.mtr_n_riesgo
+                                                    )
+                                                    .map(
+                                                        child => ({
+                                                            ...child,
+                                                            children: allChildren
+                                                                .filter(
+                                                                    grandchild => 
+                                                                        grandchild.t_registro === 'TR' && 
+                                                                        child.mtr_n_riesgo === grandchild.mtr_n_riesgo &&
+                                                                        child.mta_n_actividad === grandchild.mta_n_actividad
+                                                                )
+                                                        })
                                                     )
                                             })
                                         )
@@ -73,11 +84,46 @@ router.get('/', function (req, res, next) {
 module.exports = router;
 
 
-/* Tipos Registros Referencia
+/* Tipos Registros Referencia (NEW)
+
+OC - Objetivo de Control
+    RR - Riesgo Relacionado
+        AC - Accion de Control
+        TR - Tareas.
+
+*/
+
+/* Tipos Registros Referencia (OLD)
 
 OC - Objetivo de Control
     RR - Riesgo Relacionado
     AC - Accion de Control
         TR - Tareas.
+
+*/
+
+
+
+
+
+
+/*
+
+children: allChildren
+    .filter(
+        child => child.t_registro !== 'TR'
+    )
+    .map(
+        child => ({
+            ...child,
+            children: allChildren
+                .filter(
+                    grandchild => 
+                        child.t_registro === 'AC' && 
+                        grandchild.t_registro === 'TR' && 
+                        child.mta_n_actividad === grandchild.mta_n_actividad
+                )
+        })
+    )
 
 */

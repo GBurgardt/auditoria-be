@@ -62,7 +62,11 @@ router
                 new SpParam('p_n_actividad', TYPES.SmallInt, req.body.p_n_actividad),
                 new SpParam('p_n_objetivo', TYPES.SmallInt, req.body.p_n_objetivo),
                 new SpParam('p_actividad', TYPES.VarChar, req.body.p_actividad),
-                new SpParam('p_existe', TYPES.Char, req.body.p_existe),
+                new SpParam(
+                    'p_existe', 
+                    TYPES.Char, 
+                    req.body.p_existe
+                ),
                 new SpParam('p_existe_descrip', TYPES.VarChar, req.body.p_existe_descrip),
                 new SpParam('p_norma', TYPES.Char, req.body.p_norma),
                 new SpParam('p_norma_descrip', TYPES.VarChar, req.body.p_norma_descrip),
