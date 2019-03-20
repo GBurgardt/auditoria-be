@@ -43,26 +43,27 @@ router.get('/', function (req, res, next) {
                                             child => child.t_registro === 'RR'
                                         )
                                         .map(
-                                            child => ({
-                                                ...child,
-                                                children: allChildren
-                                                    .filter(
-                                                        grandchild => 
-                                                            grandchild.t_registro === 'AC' && 
-                                                            child.mtr_n_riesgo === grandchild.mtr_n_riesgo
-                                                    )
-                                                    .map(
-                                                        child => ({
-                                                            ...child,
-                                                            children: allChildren
-                                                                .filter(
-                                                                    grandchild => 
-                                                                        grandchild.t_registro === 'TR' && 
-                                                                        child.mtr_n_riesgo === grandchild.mtr_n_riesgo &&
-                                                                        child.mta_n_actividad === grandchild.mta_n_actividad
-                                                                )
-                                                        })
-                                                    )
+                                            rr => ({
+                                                ...rr,
+                                                children: 
+                                                    allChildren
+                                                        .filter(
+                                                            child => 
+                                                                child.t_registro === 'AC' &&
+                                                                child.mtr_n_riesgo === rr.mtr_n_riesgo
+
+                                                        )
+                                                        .map(
+                                                            ac => ({
+                                                                ...ac,
+                                                                children: 
+                                                                    allChildren
+                                                                        .filter(
+                                                                            child => child.t_registro === 'TR' && 
+                                                                            ac.mta_n_actividad === child.mta_n_actividad
+                                                                        )
+                                                            })
+                                                        )
                                             })
                                         )
                                 }
@@ -125,5 +126,31 @@ children: allChildren
                 )
         })
     )
+
+*/
+
+
+
+/*
+
+.filter(
+                                            child => 
+                                                child.t_registro === 'RR' ||
+                                                child.t_registro === 'AC'
+                                        )
+                                        .map(
+                                            rrAc => ({
+                                                ...rrAc,
+                                                children: 
+                                                    rrAc.t_registro === 'RR' ? [] :
+                                                    allChildren
+                                                        .filter(
+                                                            acChild => 
+                                                                acChild.t_registro === 'TR' && 
+                                                                rrAc.mta_n_actividad === acChild.mta_n_actividad
+                                                        )
+                                            })
+                                        )
+
 
 */
