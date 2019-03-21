@@ -165,10 +165,10 @@ router
                 storesProcedures.s_AU_MATRIZ_AC_CRUD, 
                 [
                     new SpParam('paction', TYPES.Char, 'D'),
-                    new SpParam('p_c_empresa', TYPES.Int, req.body.p_c_empresa),
-                    new SpParam('p_n_auditoria', TYPES.Int, req.body.p_n_auditoria),
+                    new SpParam('p_c_empresa', TYPES.Int, req.query.p_c_empresa),
+                    new SpParam('p_n_auditoria', TYPES.Int, req.query.p_n_auditoria),
                     new SpParam('p_n_actividad', TYPES.SmallInt, req.params.p_n_actividad),
-                    new SpParam('p_n_objetivo', TYPES.SmallInt, req.body.p_n_objetivo),
+                    new SpParam('p_n_objetivo', TYPES.SmallInt, req.query.p_n_objetivo),
                     new SpParam('p_actividad', TYPES.VarChar, null),
                     new SpParam('p_existe', TYPES.Char, null),
                     new SpParam('p_existe_descrip', TYPES.VarChar, null),
@@ -177,7 +177,7 @@ router
                     new SpParam('p_referencia', TYPES.VarChar, null),
                     new SpParam('p_ac_estado', TYPES.Char, null),
                     new SpParam('p_usuario', TYPES.VarChar, null),
-                    new SpParam('p_n_riesgo', TYPES.SmallInt, req.body.p_n_riesgo)
+                    new SpParam('p_n_riesgo', TYPES.SmallInt, req.query.p_n_riesgo)
                 ]
             )
                 .then(resp => {
@@ -187,7 +187,7 @@ router
                             ...resp,
                             infoModal: {
                                 title: 'Operación realizada',
-                                innerText: `El Riesgo Relacionado se borró con éxito`
+                                innerText: `La Acción de Control se borró con éxito`
                             }
                         };
     
